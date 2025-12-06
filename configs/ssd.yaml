@@ -1,0 +1,48 @@
+
+seed: 0
+env:
+  steps_per_episode: 100000
+  page_bytes: 4096
+  dram_ns: 100
+  nvm_ns: 70000
+  ewma_alpha: 0.05
+  hotness_window: 4096
+  dram_capacity_pages: 100000
+  lambda_migration: 0.002
+  lambda_writeamp: 0.001
+  lambda_mi_pressure: 0.002
+  ewma_mp_alpha: 0.1
+  presets:
+    - { promote: 0, prefetch: 0, hot_q: 1.00, stride: 1 }
+    - { promote: 1, prefetch: 0, hot_q: 0.90, stride: 1 }
+    - { promote: 1, prefetch: 0, hot_q: 0.50, stride: 1 }
+    - { promote: 1, prefetch: 1, hot_q: 0.90, stride: 1 }
+    - { promote: 1, prefetch: 1, hot_q: 0.50, stride: 1 }
+    - { promote: 1, prefetch: 1, hot_q: 0.50, stride: 2 }
+    - { promote: 1, prefetch: 1, hot_q: 0.50, stride: 4 }
+    - { promote: 1, prefetch: 2, hot_q: 0.90, stride: 1 }
+    - { promote: 1, prefetch: 2, hot_q: 0.50, stride: 1 }
+    - { promote: 1, prefetch: 2, hot_q: 0.50, stride: 2 }
+    - { promote: 1, prefetch: 2, hot_q: 0.50, stride: 4 }
+    - { promote: 1, prefetch: 4, hot_q: 0.90, stride: 1 }
+    - { promote: 1, prefetch: 4, hot_q: 0.50, stride: 1 }
+    - { promote: 1, prefetch: 4, hot_q: 0.50, stride: 2 }
+    - { promote: 1, prefetch: 4, hot_q: 0.50, stride: 4 }
+trace:
+  footprint_pages: 2000000
+  phase_seconds: 60
+  seq_jump_pages: 128
+  stride_k_pages: 4
+agent:
+  gamma: 0.99
+  lr: 0.001
+  batch_size: 128
+  replay_size: 50000
+  warmup_steps: 1000
+  target_update_tau: 0.005
+  eps_start: 1.0
+  eps_end: 0.05
+  eps_decay_steps: 30000
+  dueling: true
+  double: true
+  hidden: [256, 256]
